@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Salesphere</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- TOP HEADER / HERO -->
+    <header class="hero">
+        <div class="hero-top">
+            <div class="logo">salesphere</div>
+
+            <div class="stats">
+                <span class="stats-label">Nearby</span>
+                <span class="stats-value">6</span>
+                <span class="stats-label">discounts</span>
+            </div>
+        </div>
+
+        <p class="hero-subtitle">Find the closest discount — instantly.</p>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for cafés, restaurants..."
+            />
+        </div>
+    </header>
+
+    <!-- CATEGORY FILTER BUTTONS -->
+    <nav class="filters">
+        <button class="filter-btn active" data-type="all">% All</button>
+        <button class="filter-btn" data-type="cafe">Cafés</button>
+        <button class="filter-btn" data-type="restaurant">Restaurants</button>
+        <button class="filter-btn" data-type="dessert">Desserts</button>
+    </nav>
+
+    <!-- MAIN CARDS -->
+    <main class="cards">
+        <!-- Card 1 -->
+        <article class="card" data-type="cafe">
+            <div class="card-image card-image-1">
+                <span class="badge">20% OFF</span>
+                <button class="fav-btn">♡</button>
+            </div>
+            <div class="card-body">
+                <h3>Coffee Muse</h3>
+                <p>20% off all drinks — until 6:00 PM</p>
+
+                <div class="card-footer">
+                    <span>0.5 km</span>
+                    <span>Until 18:00</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card" data-type="restaurant">
+            <div class="card-image card-image-2">
+                <span class="badge">30% OFF</span>
+                <button class="fav-btn">♡</button>
+            </div>
+            <div class="card-body">
+                <h3>Taste Republic</h3>
+                <p>30% discount on the full menu</p>
+
+                <div class="card-footer">
+                    <span>1.2 km</span>
+                    <span>Until 20:00</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card" data-type="dessert">
+            <div class="card-image card-image-3">
+                <span class="badge">15% OFF</span>
+                <button class="fav-btn">♡</button>
+            </div>
+            <div class="card-body">
+                <h3>Sweet Dreams Bakery</h3>
+                <p>15% off all desserts</p>
+
+                <div class="card-footer">
+                    <span>0.8 km</span>
+                    <span>Until 22:00</span>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <footer class="bottom-nav">
+        <button class="nav-btn active">Home</button>
+        <button class="nav-btn">Favorites</button>
+        <button class="nav-btn">Profile</button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
