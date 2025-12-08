@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Salesphere for Businesses</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="hero hero--small">
+    <div class="hero-top">
+      <a href="index.html" class="logo">salesphere</a>
+
+      <nav class="main-nav">
+        <a href="index.html#deals">Deals</a>
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="business.html">For businesses</a>
+      </nav>
+
+      <div class="stats stats--muted">
+        <span class="stats-label">Partners</span>
+        <span class="stats-value">30+</span>
+      </div>
+    </div>
+
+    <div class="hero-main hero-main--single">
+      <div class="hero-text">
+        <h1>Turn nearby people into repeat customers.</h1>
+        <p>Salesphere helps you promote your discounts to people who are already close to your venue and ready to spend.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section class="page-section">
+      <div class="business-layout">
+        <div class="business-text">
+          <h2>Why list your business on Salesphere?</h2>
+          <p>
+            Instead of posting discounts across random stories and channels, reach people directly when they search for places
+            to eat, drink, or relax near them.
+          </p>
+
+          <ul class="business-list">
+            <li><strong>Reach the right people.</strong> Students, young professionals, and locals near your area.</li>
+            <li><strong>Fill slow hours.</strong> Push deals for off-peak times instead of discounting all day.</li>
+            <li><strong>Easy to update.</strong> Change your discount text in seconds.</li>
+          </ul>
+
+          <h3>Who is it for?</h3>
+          <ul class="business-list">
+            <li>Cafés and coffee shops</li>
+            <li>Restaurants and diners</li>
+            <li>Cinemas and entertainment venues</li>
+            <li>Arcades, bowling, VR and more</li>
+          </ul>
+        </div>
+
+        <aside class="business-card">
+          <h3>Join as a partner</h3>
+          <p class="business-card-subtitle">Tell us about your place and we’ll contact you.</p>
+
+          <form class="business-form">
+            <label>
+              Business name
+              <input type="text" name="name" placeholder="Example: CoffeeGo" required />
+            </label>
+
+            <label>
+              Type
+              <select name="type" required>
+                <option value="">Select type</option>
+                <option value="cafe">Café</option>
+                <option value="restaurant">Restaurant</option>
+                <option value="cinema">Cinema</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+
+            <label>
+              Location area
+              <input type="text" name="area" placeholder="Example: City center, campus, mall..." required />
+            </label>
+
+            <label>
+              Contact email
+              <input type="email" name="email" placeholder="you@example.com" required />
+            </label>
+
+            <label>
+              Typical discount
+              <input type="text" name="discount" placeholder="Example: 20% off after 6 PM" />
+            </label>
+
+            <button type="submit" class="primary-btn business-submit">Submit interest</button>
+            <p class="business-note">This is a demo form. In a real product, this would send your details to our team.</p>
+          </form>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Salesphere.</span>
+      <span class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="business.html">For businesses</a>
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
