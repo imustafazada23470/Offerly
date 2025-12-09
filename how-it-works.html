@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>How Salesphere Works</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="hero hero--small">
+    <div class="hero-top">
+      <a href="index.html" class="logo">salesphere</a>
+
+      <nav class="main-nav">
+        <a href="deals.html">Deals</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="business.html">For businesses</a>
+      </nav>
+
+      <div class="stats stats--muted">
+        <span class="stats-label">Guide</span>
+        <span class="stats-value">3 steps</span>
+      </div>
+    </div>
+
+    <div class="hero-main hero-main--single">
+      <div class="hero-text">
+        <h1>See how Salesphere works for you.</h1>
+        <p>Understand how we show nearby deals, how filtering works, and how you can save money every day.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section class="page-section">
+      <section class="info-section">
+        <h2>How Salesphere works</h2>
+        <div class="info-grid">
+          <article class="info-card">
+            <span class="info-number">1</span>
+            <h3>Set your area</h3>
+            <p>Pick your location or let your browser detect it to see deals near you.</p>
+          </article>
+          <article class="info-card">
+            <span class="info-number">2</span>
+            <h3>Browse live offers</h3>
+            <p>Filter by category, distance, and discount size to find the best option.</p>
+          </article>
+          <article class="info-card">
+            <span class="info-number">3</span>
+            <h3>Save money daily</h3>
+            <p>Show the deal at the venue, enjoy the discount, and keep coming back.</p>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Salesphere.</span>
+      <span class="footer-links">
+        <a href="index.html">Deals</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="business.html">For businesses</a>
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
