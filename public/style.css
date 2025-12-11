@@ -38,38 +38,26 @@ body {
 
 .hero-top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 24px;
 }
 
-.hero-center {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
 .logo {
   font-weight: 700;
-  font-size: 32px;
+  font-size: 20px;
   letter-spacing: 0.04em;
   text-transform: lowercase;
   color: var(--accent);
   text-decoration: none;
-  text-align: center;
 }
 
 .main-nav {
   display: flex;
   gap: 16px;
   font-size: 14px;
-  justify-content: center;
 }
-
-
 
 .main-nav a {
   text-decoration: none;
@@ -183,12 +171,6 @@ body {
   box-shadow: var(--shadow-soft);
   border: 1px solid #e5e7eb;
 }
-
-.hero-search--wide {
-  max-width: 960px;
-  margin: 0 auto;
-}
-
 
 .field-label {
   display: block;
@@ -704,57 +686,4 @@ body {
   .site-footer {
     padding-bottom: 70px; /* room for bottom nav if reused on mobile */
   }
-}
-
-/* ===== LANDING / COVER PAGE ===== */
-
-.landing-body {
-  background: linear-gradient(135deg, #e0f2ff, #f5f7fb 40%, #fee2c5);
-  min-height: 100vh;
-}
-
-.landing {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 16px;
-}
-
-.landing-inner {
-  text-align: center;
-  max-width: 520px;
-}
-
-.landing-logo {
-  font-size: 40px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: lowercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-
-.landing-tagline {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: var(--text-main);
-}
-
-.landing-sub {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-}
-
-.landing-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.landing-btn {
-  min-width: 180px;
 }

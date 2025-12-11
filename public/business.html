@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Salesphere for Businesses</title>
@@ -9,17 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
+
 <body>
   <header class="hero hero--small">
     <div class="hero-top">
       <a href="index.html" class="logo">salesphere</a>
 
       <nav class="main-nav">
-        <a href="deals.html">Deals</a>
-        <a href="how-it-works.html">How it works</a>
+        <a href="index.html#deals">Deals</a>
+        <a href="index.html#how-it-works">How it works</a>
         <a href="business.html">For businesses</a>
       </nav>
-
 
       <div class="stats stats--muted">
         <span class="stats-label">Partners</span>
@@ -30,7 +31,8 @@
     <div class="hero-main hero-main--single">
       <div class="hero-text">
         <h1>Turn nearby people into repeat customers.</h1>
-        <p>Salesphere helps you promote your discounts to people who are already close to your venue and ready to spend.</p>
+        <p>Salesphere helps you promote your discounts to people who are already close to your venue and ready to spend.
+        </p>
       </div>
     </div>
   </header>
@@ -41,7 +43,8 @@
         <div class="business-text">
           <h2>Why list your business on Salesphere?</h2>
           <p>
-            Instead of posting discounts across random stories and channels, reach people directly when they search for places
+            Instead of posting discounts across random stories and channels, reach people directly when they search for
+            places
             to eat, drink, or relax near them.
           </p>
 
@@ -97,7 +100,8 @@
             </label>
 
             <button type="submit" class="primary-btn business-submit">Submit interest</button>
-            <p class="business-note">This is a demo form. In a real product, this would send your details to our team.</p>
+            <p class="business-note">This is a demo form. In a real product, this would send your details to our team.
+            </p>
           </form>
         </aside>
       </div>
@@ -115,7 +119,42 @@
   </footer>
 
   <script>
+    // Set current year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const form = document.querySelector(".business-form");
+
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        try {
+          const res = await fetch("/api/businesses", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            alert("Error: " + (data.error || "Something went wrong"));
+            return;
+          }
+
+          alert("Thank you! Your submission was received.");
+          form.reset();
+        } catch (err) {
+          console.error(err);
+          alert("Network error. Please try again later.");
+        }
+      });
+    }
   </script>
+
 </body>
+
 </html>
