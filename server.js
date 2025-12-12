@@ -1,143 +1,182 @@
-// server.js
-import express from "express";
-import path from "path";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import { fileURLToPath } from "url";
-import { Deal } from "./models/Deal.js";
-import { Business } from "./models/Business.js";
-
-dotenv.config();
+// server.js (CommonJS version)
+const express = require("express");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Resolve __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// ===== MONGODB CONNECTION =====
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/salesphere";
-
-mongoose
-  .connect(MONGO_URI)
-  .then(() => {
-    console.log("✅ Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error("❌ MongoDB connection error:", err.message);
-  });
-
-// ===== MIDDLEWARE =====
+// Parse JSON bodies
 app.use(express.json());
 
-// Serve static frontend
+// Serve static frontend from /public
 app.use(express.static(path.join(__dirname, "public")));
-// ===== API ROUTES =====
 
-// GET /api/deals  (supports optional: ?type=&q=&sort=discount|distance)
-app.get("/api/deals", async (req, res) => {
-  try {
-    const { type, q, sort } = req.query;
-    const filter = {};
+// ----- In-memory data (demo deals) -----
+let deals = [
+  {
+    id: 1,
+    name: "CoffeeGo",
+    type: "cafe",
+    badge: "Coffee • Snacks",
+    description: "20% off all drinks for students after 5 PM.",
+    discount: 20,
+    distanceKm: 0.4,
+    rating: 4.7,
+    ratingCount: 126,
+    validText: "Today • 17:00-22:00",
+    image:
+      "https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg?auto=compress&cs=tinysrgb&w=400",
+  },
+  {
+    id: 2,
+    name: "Sunset Diner",
+    type: "restaurant",
+    badge: "Burgers • Grill",
+    description: "Buy 1 get 1 free on all burgers.",
+    discount: 50,
+    distanceKm: 1.2,
+    rating: 4.5,
+    ratingCount: 89,
+    validText: "This week only",
+    image:
+      "https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?auto=compress&cs=tinysrgb&w=400",
+  },
+  {
+    id: 3,
+    name: "Nova Cinema",
+    type: "cinema",
+    badge: "Cinema",
+    description: "Student tickets for 6 AZN on weekdays.",
+    discount: 30,
+    distanceKm: 2.1,
+    rating: 4.3,
+    ratingCount: 241,
+    validText: "Weekdays • until 18:00",
+    image:
+      "https://images.pexels.com/photos/7991520/pexels-photo-7991520.jpeg?auto=compress&cs=tinysrgb&w=400",
+  },
+  {
+    id: 4,
+    name: "Green Bowl",
+    type: "restaurant",
+    badge: "Healthy • Salad",
+    description: "15% off on bowls when you order 2 or more.",
+    discount: 15,
+    distanceKm: 0.7,
+    rating: 4.8,
+    ratingCount: 63,
+    validText: "Everyday • 12:00-21:00",
+    image:
+      "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400",
+  },
+  {
+    id: 5,
+    name: "Pixel Arcade",
+    type: "other",
+    badge: "Arcade • VR",
+    description: "3 games for the price of 2.",
+    discount: 33,
+    distanceKm: 1.9,
+    rating: 4.2,
+    ratingCount: 54,
+    validText: "Weekends only",
+    image:
+      "https://images.pexels.com/photos/1857152/pexels-photo-1857152.jpeg?auto=compress&cs=tinysrgb&w=400",
+  },
+  {
+    id: 6,
+    name: "Midnight Café",
+    type: "cafe",
+    badge: "Late night coffee",
+    description: "Free dessert with any drink after 21:00.",
+    discount: 25,
+    distanceKm: 0.3,
+    rating: 4.6,
+    ratingCount: 102,
+    validText: "Fri-Sun • 21:00-01:00",
+    image:
+      "https://images.pexels.com/photos/4352247/pexels-photo-4352247.jpeg?auto=compress&cs=tinysrgb&w=400",
+  },
+];
 
-    if (type && type !== "all") {
-      filter.type = type;
-    }
+let businessSubmissions = [];
 
-    if (q) {
-      // If text index exists, this will work; otherwise ignore in UI
-      filter.$text = { $search: q };
-    }
+// ----- API ROUTES -----
 
-    let query = Deal.find(filter);
-
-    if (sort === "discount") query = query.sort({ discount: -1 });
-    else if (sort === "distance") query = query.sort({ distanceKm: 1 });
-
-    const deals = await query.exec();
-    res.json(deals);
-  } catch (err) {
-    console.error("Error loading deals:", err);
-    res.status(500).json({ error: "Could not load deals" });
-  }
+// GET /api/deals → return all deals
+app.get("/api/deals", (req, res) => {
+  res.json(deals);
 });
 
-// POST /api/deals  (admin / future use)
-app.post("/api/deals", async (req, res) => {
-  try {
-    const body = req.body;
-
-    if (!body.name || !body.type || typeof body.discount === "undefined") {
-      return res
-        .status(400)
-        .json({ error: "name, type and discount are required" });
-    }
-
-    const newDeal = await Deal.create({
-      name: body.name,
-      type: body.type,
-      badge: body.badge,
-      description: body.description,
-      discount: body.discount,
-      distanceKm: body.distanceKm,
-      rating: body.rating,
-      ratingCount: body.ratingCount,
-      validText: body.validText,
-      image: body.image,
-    });
-
-    res.status(201).json(newDeal);
-  } catch (err) {
-    console.error("Error creating deal:", err);
-    res.status(500).json({ error: "Could not create deal" });
+// POST /api/deals → (optional) add a new deal from an admin tool later
+app.post("/api/deals", (req, res) => {
+  const body = req.body;
+  if (!body.name || !body.type) {
+    return res.status(400).json({ error: "name and type are required" });
   }
+
+  const newDeal = {
+    id: deals.length ? deals[deals.length - 1].id + 1 : 1,
+    name: body.name,
+    type: body.type, // cafe / restaurant / cinema / other
+    badge: body.badge || "",
+    description: body.description || "",
+    discount: Number(body.discount) || 0,
+    distanceKm: Number(body.distanceKm) || 0,
+    rating: Number(body.rating) || 0,
+    ratingCount: Number(body.ratingCount) || 0,
+    validText: body.validText || "",
+    image: body.image || "",
+  };
+
+  deals.push(newDeal);
+  res.status(201).json(newDeal);
 });
 
-// POST /api/businesses  – from business form
-app.post("/api/businesses", async (req, res) => {
-  try {
-    const body = req.body;
+// POST /api/businesses → handle “Join as a partner” form
+app.post("/api/businesses", (req, res) => {
+  const body = req.body;
 
-    if (!body.name || !body.type || !body.email) {
-      return res
-        .status(400)
-        .json({ error: "name, type and email are required fields" });
-    }
-
-    const newBiz = await Business.create({
-      name: body.name,
-      type: body.type,
-      area: body.area,
-      email: body.email,
-      discount: body.discount,
-    });
-
-    console.log("New business submission:", newBiz);
-    res.status(201).json({ success: true, message: "Submission received." });
-  } catch (err) {
-    console.error("Error saving business:", err);
-    res.status(500).json({ error: "Could not save business submission" });
+  if (!body.name || !body.type || !body.email) {
+    return res
+      .status(400)
+      .json({ error: "name, type and email are required fields" });
   }
+
+  const newBusiness = {
+    id: businessSubmissions.length
+      ? businessSubmissions[businessSubmissions.length - 1].id + 1
+      : 1,
+    name: body.name,
+    type: body.type,
+    area: body.area || "",
+    email: body.email,
+    discount: body.discount || "",
+    createdAt: new Date().toISOString(),
+  };
+
+  businessSubmissions.push(newBusiness);
+
+  console.log("New business submission:", newBusiness);
+
+  res.status(201).json({ success: true, message: "Submission received." });
 });
 
-// GET /api/businesses – optional dev inspection
-app.get("/api/businesses", async (req, res) => {
-  try {
-    const list = await Business.find().sort({ createdAt: -1 });
-    res.json(list);
-  } catch (err) {
-    console.error("Error loading businesses:", err);
-    res.status(500).json({ error: "Could not load business submissions" });
-  }
+// (your API routes above...)
+
+app.get("/api/businesses", (req, res) => {
+  res.json(businessSubmissions);
 });
 
-// ===== FALLBACK: serve index.html for unknown routes =====
-app.get("*", (req, res) => {
+// ✅ New fallback (no "*" pattern)
+app.use((req, res) => {
+  if (req.path.startsWith("/api")) {
+    return res.status(404).json({ error: "Not found" });
+  }
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// ===== START SERVER =====
+// ----- START SERVER -----
 app.listen(PORT, () => {
-  console.log(`✅ Salesphere server running on http://localhost:${PORT}`);
+  console.log(`Salesphere server running on http://localhost:${PORT}`);
 });
