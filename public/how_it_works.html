@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>How Salesphere Works</title>
+    <meta
+      name="description"
+      content="Learn how Salesphere helps people discover nearby discounts and how businesses can attract more customers."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="hero hero--small">
+      <div class="hero-top">
+        <a href="index.html" class="logo">salesphere</a>
+
+        <nav class="main-nav">
+          <a href="index.html">Deals</a>
+          <a href="how_it_works.html">How it works</a>
+          <a href="business.html">For businesses</a>
+          <a href="about.html">About</a>
+        </nav>
+
+        <div class="stats stats--muted">
+          <span class="stats-label">Cities</span>
+          <span class="stats-value">Demo</span>
+        </div>
+      </div>
+
+      <div class="hero-main hero-main--single">
+        <div class="hero-text">
+          <h1>How Salesphere works.</h1>
+          <p>
+            One place for nearby discounts. Simple for people who want to save
+            money, and simple for venues that want more visitors.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="page-section">
+        <h2>For people who want to save</h2>
+        <p style="margin-bottom: 12px; color: #6b7280; font-size: 14px;">
+          Salesphere helps you quickly decide where to go without opening ten
+          different apps and stories.
+        </p>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <span class="info-number">1</span>
+            <h3>Open Salesphere</h3>
+            <p>
+              Visit the website and set your area, or simply use the default
+              city if you’re browsing from home.
+            </p>
+          </article>
+          <article class="info-card">
+            <span class="info-number">2</span>
+            <h3>Filter and compare</h3>
+            <p>
+              Use category filters and sorting to find the best discounts for
+              cafés, restaurants, cinemas and more.
+            </p>
+          </article>
+          <article class="info-card">
+            <span class="info-number">3</span>
+            <h3>Go and show the deal</h3>
+            <p>
+              Once you choose a place, just go there and show the offer on your
+              phone at the counter.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="page-section" style="margin-top: 32px;">
+        <h2>For businesses that want more guests</h2>
+        <p style="margin-bottom: 12px; color: #6b7280; font-size: 14px;">
+          Instead of shouting into the void with random posts, you appear in
+          front of people who are already looking for a place to go.
+        </p>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <span class="info-number">1</span>
+            <h3>Share your details</h3>
+            <p>
+              Use the “For businesses” page to send us your venue name, type,
+              area and contact email.
+            </p>
+          </article>
+          <article class="info-card">
+            <span class="info-number">2</span>
+            <h3>Agree on your discount</h3>
+            <p>
+              Decide which times and days you want to promote (for example,
+              quiet weekday evenings).
+            </p>
+          </article>
+          <article class="info-card">
+            <span class="info-number">3</span>
+            <h3>Start appearing in searches</h3>
+            <p>
+              Your deals show up inside Salesphere when someone nearby filters by
+              your category or area.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© <span id="year"></span> Salesphere.</span>
+        <span class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="how_it_works.html">How it works</a>
+          <a href="business.html">For businesses</a>
+          <a href="about.html">About</a>
+        </span>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
