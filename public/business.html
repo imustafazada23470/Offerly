@@ -8,7 +8,10 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 </head>
 
 <body>
@@ -43,23 +46,22 @@
         <div class="business-text">
           <h2>Why list your business on Salesphere?</h2>
           <p>
-            Instead of posting discounts across random stories and channels, reach people directly when they search for
-            places
-            to eat, drink, or relax near them.
+            Instead of posting discounts across random stories and channels, reach people directly when they search
+            for places to eat, drink, or relax near them.
           </p>
 
           <ul class="business-list">
-            <li><strong>Reach the right people.</strong> Students, young professionals, and locals near your area.</li>
-            <li><strong>Fill slow hours.</strong> Push deals for off-peak times instead of discounting all day.</li>
+            <li><strong>Reach the right people.</strong> Students, young professionals, and nearby locals.</li>
+            <li><strong>Fill slow hours.</strong> Promote off-peak deals instead of discounting all day.</li>
             <li><strong>Easy to update.</strong> Change your discount text in seconds.</li>
           </ul>
 
           <h3>Who is it for?</h3>
           <ul class="business-list">
-            <li>Cafés and coffee shops</li>
-            <li>Restaurants and diners</li>
-            <li>Cinemas and entertainment venues</li>
-            <li>Arcades, bowling, VR and more</li>
+            <li>Cafés & coffee shops</li>
+            <li>Restaurants & diners</li>
+            <li>Cinemas & entertainment venues</li>
+            <li>Arcades, VR, bowling & more</li>
           </ul>
         </div>
 
@@ -100,8 +102,7 @@
             </label>
 
             <button type="submit" class="primary-btn business-submit">Submit interest</button>
-            <p class="business-note">This is a demo form. In a real product, this would send your details to our team.
-            </p>
+            <p id="formStatus" class="business-note"></p>
           </form>
         </aside>
       </div>
@@ -123,10 +124,15 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     const form = document.querySelector(".business-form");
+    const statusEl = document.getElementById("formStatus");
 
     if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+
+        statusEl.textContent = "Sending...";
+        const button = form.querySelector("button[type='submit']");
+        if (button) button.disabled = true;
 
         const formData = new FormData(form);
         const payload = Object.fromEntries(formData.entries());
@@ -141,15 +147,18 @@
           const data = await res.json();
 
           if (!res.ok) {
-            alert("Error: " + (data.error || "Something went wrong"));
+            statusEl.textContent = "Error: " + (data.error || "Invalid data");
             return;
           }
 
-          alert("Thank you! Your submission was received.");
+          statusEl.textContent = "Thank you! Your submission was received.";
           form.reset();
+
         } catch (err) {
           console.error(err);
-          alert("Network error. Please try again later.");
+          statusEl.textContent = "Network error. Please try again.";
+        } finally {
+          if (button) button.disabled = false;
         }
       });
     }

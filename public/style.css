@@ -394,8 +394,6 @@ body {
   cursor: pointer;
 }
 
-/* ===== INFO SECTIONS ===== */
-
 .info-section {
   padding: 0 32px 40px;
 }
@@ -459,8 +457,6 @@ body {
 .for-business li + li {
   margin-top: 4px;
 }
-
-/* ===== BUSINESS PAGE ===== */
 
 .page-main {
   padding: 24px 32px 80px;
@@ -559,8 +555,6 @@ body {
   color: var(--text-muted);
   margin-top: 4px;
 }
-
-/* ===== BOTTOM NAV / FOOTER ===== */
 
 .bottom-nav {
   position: fixed;
@@ -684,6 +678,80 @@ body {
   }
 
   .site-footer {
-    padding-bottom: 70px; /* room for bottom nav if reused on mobile */
+    padding-bottom: 70px;
   }
+}
+
+.landing-body {
+  background: linear-gradient(135deg, #e0f2ff, #f5f7fb 40%, #fee2c5);
+  min-height: 100vh;
+}
+
+.landing {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.landing-inner {
+  text-align: center;
+  max-width: 520px;
+}
+
+.landing-logo {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.landing-tagline {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.landing-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.landing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.landing-btn {
+  min-width: 180px;
+}
+
+.loading-text,
+.no-results-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 12px 4px;
+}
+
+.card {
+  transition: transform 0.15s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.business-note {
+  font-size: 12px;
+  margin-top: 6px;
+  color: var(--text-muted);
+  min-height: 16px;
 }

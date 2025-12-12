@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Salesphere - Nearby Deals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+
+<body>
+  <!-- HEADER / HERO -->
+  <header class="hero">
+    <div class="hero-top">
+      <a href="./index.html" class="logo">salesphere</a>
+
+      <nav class="main-nav">
+        <a href="#deals">Deals</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="business.html">For businesses</a>
+      </nav>
+
+      <div class="stats">
+        <span class="stats-label">Nearby</span>
+        <span class="stats-value" id="nearbyCount">0</span>
+      </div>
+    </div>
+
+    <div class="hero-main">
+      <div class="hero-text">
+        <h1>All discounts around you in one place.</h1>
+        <p>Discover cafés, restaurants, cinemas and more with real-time deals based on your area.</p>
+        <div class="hero-actions">
+          <a href="#deals" class="primary-btn">Explore deals</a>
+          <a href="./business.html" class="ghost-btn">I own a business</a>
+        </div>
+      </div>
+
+      <div class="hero-search">
+        <label class="field-label" for="searchInput">Search places or deals</label>
+        <div class="search-row">
+          <input
+            id="searchInput"
+            class="search-input"
+            type="text"
+            placeholder="Search for cafés, restaurants, cinemas..."
+          />
+        </div>
+
+        <div class="filters-row">
+          <div class="filter-group">
+            <span class="filter-label">Category</span>
+            <div class="filter-buttons">
+              <button class="filter-btn active" data-type="all">All</button>
+              <button class="filter-btn" data-type="cafe">Cafés</button>
+              <button class="filter-btn" data-type="restaurant">Restaurants</button>
+              <button class="filter-btn" data-type="cinema">Cinemas</button>
+              <button class="filter-btn" data-type="other">Other</button>
+            </div>
+          </div>
+
+          <div class="filter-group sort-group">
+            <span class="filter-label">Sort</span>
+            <select id="sortSelect" class="sort-select">
+              <option value="default">Recommended</option>
+              <option value="discount">Highest discount</option>
+              <option value="distance">Closest first</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- DEALS LIST -->
+    <section id="deals" class="deals-section">
+      <div class="section-heading">
+        <h2>Nearby deals</h2>
+        <p>Hand-picked discounts available around you right now.</p>
+      </div>
+
+      <!-- NEW: Loading + No Results -->
+      <p id="loading" class="loading-text">Loading deals…</p>
+      <p id="noResults" class="no-results-text" style="display:none;">No matching deals found.</p>
+
+      <div id="cardsContainer" class="cards-container"></div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="info-section">
+      <h2>How Salesphere works</h2>
+      <div class="info-grid">
+        <article class="info-card">
+          <span class="info-number">1</span>
+          <h3>Set your area</h3>
+          <p>Pick your location or let your browser detect it to see deals near you.</p>
+        </article>
+        <article class="info-card">
+          <span class="info-number">2</span>
+          <h3>Browse live offers</h3>
+          <p>Filter by category, distance, and discount size to find the best option.</p>
+        </article>
+        <article class="info-card">
+          <span class="info-number">3</span>
+          <h3>Save money daily</h3>
+          <p>Show the deal at the venue, enjoy the discount, and keep coming back.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- BUSINESS CTA -->
+    <section class="info-section for-business">
+      <div class="info-content">
+        <h2>Own a café, restaurant, or cinema?</h2>
+        <p>List your discounts on Salesphere and reach nearby students and locals who actually want to spend.</p>
+        <ul>
+          <li>Fill empty tables during off-peak hours.</li>
+          <li>Promote limited-time offers in seconds.</li>
+          <li>Get visibility without building your own app.</li>
+        </ul>
+        <a href="./business.html" class="primary-btn">Join as a partner</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bottom-nav">
+    <button class="nav-btn active">Home</button>
+    <button class="nav-btn" title="Coming soon">Favorites</button>
+    <button class="nav-btn" title="Coming soon">Profile</button>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
