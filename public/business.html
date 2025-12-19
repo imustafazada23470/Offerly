@@ -1,14 +1,11 @@
+<!-- public/business.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Salesphere for Businesses</title>
-    <meta
-      name="description"
-      content="List your café, restaurant, cinema or venue on Salesphere and reach nearby customers."
-    />
+    <title>Salesphere — For businesses</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,92 +13,72 @@
       rel="stylesheet"
     />
   </head>
-
   <body>
-    <header class="hero hero--small">
-      <div class="hero-top">
-        <a href="index.html" class="logo">salesphere</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html">salesphere</a>
 
-        <nav class="main-nav">
-          <a href="index.html">Deals</a>
-          <a href="how_it_works.html">How it works</a>
-          <a href="business.html">For businesses</a>
-          <a href="about.html">About</a>
+        <nav class="top-nav" aria-label="Primary">
+          <a class="nav-link" href="./index.html">Deals</a>
+          <a class="nav-link active" href="./business.html">For businesses</a>
+          <a class="nav-link" href="./about.html">About</a>
         </nav>
-
-        <div class="stats stats--muted">
-          <span class="stats-label">Partners</span>
-          <span class="stats-value">30+</span>
-        </div>
-      </div>
-
-      <div class="hero-main hero-main--single">
-        <div class="hero-text">
-          <h1>Turn nearby people into repeat customers.</h1>
-          <p>
-            Instead of posting discounts across random stories and channels,
-            reach people directly when they search for places to eat, drink, or
-            relax near them.
-          </p>
-        </div>
       </div>
     </header>
 
-    <main class="page-main">
-      <section class="page-section">
-        <div class="business-layout">
-          <div class="business-text">
-            <h2>Why list your business on Salesphere?</h2>
-            <p>
-              Show your best offers to students, young professionals, and locals
-              exactly when they are looking for somewhere to go.
-            </p>
+    <main class="page">
+      <section class="page-head">
+        <div class="page-head-left">
+          <h1>For businesses</h1>
+          <p>Turn nearby people into repeat customers.</p>
+        </div>
+      </section>
 
-            <ul class="business-list">
-              <li>
-                <strong>Reach the right people.</strong> Students, young
-                professionals, and locals near your area.
-              </li>
-              <li>
-                <strong>Fill slow hours.</strong> Push deals for off-peak times
-                instead of discounting all day.
-              </li>
-              <li>
-                <strong>Easy to update.</strong> Change your discount text in
-                seconds.
-              </li>
-            </ul>
+      <section class="content">
+        <div class="cards" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+          <article class="card">
+            <div class="card-main">
+              <h3 class="card-title">Why list on Salesphere?</h3>
+              <p class="card-desc">
+                Reach students and locals who are already searching for places to eat, drink, or relax.
+              </p>
+              <div class="card-meta">
+                <span><strong>Targeted reach</strong></span>
+                <span>No random spam</span>
+              </div>
+            </div>
+          </article>
 
-            <h3>Who is it for?</h3>
-            <ul class="business-list">
-              <li>Cafés and coffee shops</li>
-              <li>Restaurants and diners</li>
-              <li>Cinemas and entertainment venues</li>
-              <li>Arcades, bowling, VR and more</li>
-            </ul>
-          </div>
+          <article class="card">
+            <div class="card-main">
+              <h3 class="card-title">Best for</h3>
+              <p class="card-desc">
+                Cafés, restaurants, cinemas, entertainment venues, and “hidden gems” in your area.
+              </p>
+              <div class="card-meta">
+                <span><strong>Quick setup</strong></span>
+                <span>Simple form</span>
+              </div>
+            </div>
+          </article>
+        </div>
 
-          <aside class="business-card">
-            <h3>Join as a partner</h3>
-            <p class="business-card-subtitle">
-              Tell us about your place and we'll contact you.
-            </p>
+        <div style="height: 14px;"></div>
 
-            <form class="business-form">
-              <label>
+        <article class="card">
+          <div class="card-main">
+            <h3 class="card-title">Join as a partner</h3>
+            <p class="card-desc">Tell us about your place and we’ll contact you.</p>
+
+            <form id="partnerForm" class="form-grid">
+              <label class="field">
                 Business name
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Example: CoffeeGo"
-                  required
-                />
+                <input name="name" placeholder="Example: CoffeeGo" required />
               </label>
 
-              <label>
+              <label class="field">
                 Type
                 <select name="type" required>
-                  <option value="">Select type</option>
                   <option value="cafe">Café</option>
                   <option value="restaurant">Restaurant</option>
                   <option value="cinema">Cinema</option>
@@ -109,94 +86,78 @@
                 </select>
               </label>
 
-              <label>
+              <label class="field">
                 Location area
-                <input
-                  type="text"
-                  name="area"
-                  placeholder="Example: City center, campus, mall..."
-                  required
-                />
+                <input name="area" placeholder="Example: City center / campus" />
               </label>
 
-              <label>
+              <label class="field">
                 Contact email
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="you@example.com"
-                  required
-                />
+                <input name="email" type="email" placeholder="you@example.com" required />
               </label>
 
-              <label>
+              <label class="field">
                 Typical discount
-                <input
-                  type="text"
-                  name="discount"
-                  placeholder="Example: 20% off after 6 PM"
-                />
+                <input name="discount" placeholder="Example: 10% off after 6 PM" />
               </label>
 
-              <button type="submit" class="primary-btn business-submit">
-                Submit interest
-              </button>
-              <p class="business-note">
-                This is a demo form. In a real product, this would send your
-                details to our team.
-              </p>
+              <div class="modal-actions" style="justify-content:flex-start;">
+                <button class="btn primary" type="submit">Submit interest</button>
+                <span id="formMsg" class="subnote"></span>
+              </div>
             </form>
-          </aside>
-        </div>
+          </div>
+        </article>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="footer-inner">
         <span>© <span id="year"></span> Salesphere.</span>
-        <span class="footer-links">
-          <a href="index.html">Home</a>
-          <a href="how_it_works.html">How it works</a>
-          <a href="business.html">For businesses</a>
-          <a href="about.html">About</a>
-        </span>
       </div>
     </footer>
 
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      const form = document.querySelector(".business-form");
+      const form = document.getElementById("partnerForm");
+      const msg = document.getElementById("formMsg");
 
-      if (form) {
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        msg.textContent = "Submitting…";
 
-          const formData = new FormData(form);
-          const payload = Object.fromEntries(formData.entries());
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
 
-          try {
-            const res = await fetch("/api/businesses", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload),
-            });
+        try {
+          const res = await fetch("/api/businesses", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
 
-            const data = await res.json();
+          const data = await res.json();
+          if (!res.ok) throw new Error(data?.error || "Failed");
 
-            if (!res.ok) {
-              alert("Error: " + (data.error || "Something went wrong"));
-              return;
-            }
-
-            alert("Thank you! Your submission was received.");
-            form.reset();
-          } catch (err) {
-            console.error(err);
-            alert("Network error. Please try again later.");
-          }
-        });
-      }
+          msg.textContent = "✅ Sent. We’ll reach out soon.";
+          form.reset();
+        } catch (err) {
+          msg.textContent = "❌ Could not submit. Try again.";
+        }
+      });
     </script>
+
+    <style>
+      .form-grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 12px;
+      }
+      @media (max-width: 720px) {
+        .form-grid { grid-template-columns: 1fr; }
+      }
+    </style>
   </body>
 </html>

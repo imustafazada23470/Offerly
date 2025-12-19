@@ -1,14 +1,11 @@
+<!-- public/about.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>About Salesphere</title>
-    <meta
-      name="description"
-      content="Learn why we built Salesphere and what problem it solves for students, locals, and businesses."
-    />
+    <title>Salesphere — About</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,94 +13,74 @@
       rel="stylesheet"
     />
   </head>
-
   <body>
-    <header class="hero hero--small">
-      <div class="hero-top">
-        <a href="index.html" class="logo">salesphere</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html">salesphere</a>
 
-        <nav class="main-nav">
-          <a href="index.html">Deals</a>
-          <a href="how_it_works.html">How it works</a>
-          <a href="business.html">For businesses</a>
-          <a href="about.html">About</a>
+        <nav class="top-nav" aria-label="Primary">
+          <a class="nav-link" href="./index.html">Deals</a>
+          <a class="nav-link" href="./business.html">For businesses</a>
+          <a class="nav-link active" href="./about.html">About</a>
         </nav>
-
-        <div class="stats stats--muted">
-          <span class="stats-label">Project</span>
-          <span class="stats-value">Demo</span>
-        </div>
-      </div>
-
-      <div class="hero-main hero-main--single">
-        <div class="hero-text">
-          <h1>The idea behind Salesphere.</h1>
-          <p>
-            We built Salesphere to make it easier to find real discounts nearby,
-            without wasting time jumping between different apps and stories.
-          </p>
-        </div>
       </div>
     </header>
 
-    <main class="page-main">
-      <section class="page-section">
-        <h2>What problem are we solving?</h2>
-        <p style="margin-bottom: 10px; color: #6b7280; font-size: 14px;">
-          Every day, cafés, restaurants and cinemas share discounts on random
-          channels: stories, posts, flyers, group chats. People who might love
-          those offers simply never see them.
-        </p>
-        <p style="margin-bottom: 18px; color: #6b7280; font-size: 14px;">
-          At the same time, students and locals spend a lot of time deciding
-          where to go, trying to guess which place has a good price or an active
-          offer. Salesphere brings these two sides together in one simple place.
-        </p>
+    <main class="page">
+      <section class="page-head">
+        <div class="page-head-left">
+          <h1>About</h1>
+          <p>The idea behind Salesphere.</p>
+        </div>
+      </section>
 
-        <h2>What Salesphere does</h2>
-        <ul class="business-list">
-          <li>
-            Shows nearby discounts in a clean, searchable list instead of a
-            million scattered posts.
-          </li>
-          <li>
-            Helps people quickly compare places by category, distance, and
-            discount size.
-          </li>
-          <li>
-            Gives venues a lightweight way to get visibility without building
-            their own app.
-          </li>
-        </ul>
+      <section class="content">
+        <div class="cards" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+          <article class="card">
+            <div class="card-main">
+              <h3 class="card-title">Problem</h3>
+              <p class="card-desc">
+                Discounts are scattered across stories, posts, flyers, and group chats — people who want them often never see them.
+              </p>
+              <div class="card-meta">
+                <span><strong>Too scattered</strong></span>
+                <span>Hard to compare</span>
+              </div>
+            </div>
+          </article>
 
-        <h2 style="margin-top: 18px;">Who we are</h2>
-        <p style="margin-bottom: 10px; color: #6b7280; font-size: 14px;">
-          Salesphere started as a small project to explore how technology can
-          connect local businesses and people in a smarter way. It focuses on a
-          simple, real-world use case: saving money while going out.
-        </p>
+          <article class="card">
+            <div class="card-main">
+              <h3 class="card-title">Solution</h3>
+              <p class="card-desc">
+                A simple place to discover nearby deals, filter by category, and sort by what matters — discount or distance.
+              </p>
+              <div class="card-meta">
+                <span><strong>Nearby-first</strong></span>
+                <span>Fast decisions</span>
+              </div>
+            </div>
+          </article>
+        </div>
 
-        <h2 style="margin-top: 18px;">Contact</h2>
-        <p style="margin-bottom: 6px; color: #6b7280; font-size: 14px;">
-          Have feedback or ideas? Reach out to us:
-        </p>
-        <p style="font-size: 14px;">
-          Email:
-          <a href="mailto:hello@salesphere.app">hello@salesphere.app</a>
-          (demo)
-        </p>
+        <div style="height: 14px;"></div>
+
+        <article class="card">
+          <div class="card-main">
+            <h3 class="card-title">Contact</h3>
+            <p class="card-desc">Have feedback or want your venue listed?</p>
+            <div class="card-actions">
+              <a class="btn primary" href="./business.html">Become a partner</a>
+              <a class="btn" href="mailto:hello@salesphere.app">Email us</a>
+            </div>
+          </div>
+        </article>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="footer-inner">
         <span>© <span id="year"></span> Salesphere.</span>
-        <span class="footer-links">
-          <a href="index.html">Home</a>
-          <a href="how_it_works.html">How it works</a>
-          <a href="business.html">For businesses</a>
-          <a href="about.html">About</a>
-        </span>
       </div>
     </footer>
 

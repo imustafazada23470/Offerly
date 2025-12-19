@@ -1,14 +1,15 @@
+<!-- public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Salesphere - Nearby Deals</title>
+    <title>Salesphere — Deals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="See nearby discounts for cafés, restaurants, cinemas and more in one place."
+      content="Salesphere helps you find real discounts nearby. Browse deals by category and sort easily."
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,144 +19,136 @@
   </head>
 
   <body>
-    <!-- HEADER / HERO -->
-    <header class="hero">
-      <div class="hero-top">
-        <a href="./index.html" class="logo">salesphere</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html">salesphere</a>
 
-        <nav class="main-nav">
-          <a href="index.html">Deals</a>
-          <a href="how_it_works.html">How it works</a>
-          <a href="business.html">For businesses</a>
-          <a href="about.html">About</a>
+        <nav class="top-nav" aria-label="Primary">
+          <a class="nav-link active" href="./index.html">Deals</a>
+          <a class="nav-link" href="./business.html">For businesses</a>
+          <a class="nav-link" href="./about.html">About</a>
         </nav>
 
-        <div class="stats">
-          <span class="stats-label">Nearby</span>
-          <span class="stats-value" id="nearbyCount">0</span>
-        </div>
-      </div>
+        <div class="header-right">
+          <button class="btn ghost small" id="btnEnableLocation" type="button">
+            📍 Enable location
+          </button>
 
-      <div class="hero-main">
-        <div class="hero-text">
-          <h1>All discounts around you in one place.</h1>
-          <p>
-            Discover cafés, restaurants, cinemas and more with real-time deals
-            based on your area.
-          </p>
-          <div class="hero-actions">
-            <a href="#deals" class="primary-btn">Explore deals</a>
-            <a href="./business.html" class="ghost-btn">I own a business</a>
-          </div>
-        </div>
-
-        <div class="hero-search">
-          <label class="field-label" for="searchInput">Search places or deals</label>
-          <div class="search-row">
-            <input
-              id="searchInput"
-              class="search-input"
-              type="text"
-              placeholder="Search for cafés, restaurants, cinemas..."
-            />
-          </div>
-
-          <div class="filters-row">
-            <div class="filter-group">
-              <span class="filter-label">Category</span>
-              <div class="filter-buttons">
-                <button class="filter-btn active" data-type="all">All</button>
-                <button class="filter-btn" data-type="cafe">Cafés</button>
-                <button class="filter-btn" data-type="restaurant">
-                  Restaurants
-                </button>
-                <button class="filter-btn" data-type="cinema">Cinemas</button>
-                <button class="filter-btn" data-type="other">Other</button>
-              </div>
-            </div>
-
-            <div class="filter-group sort-group">
-              <span class="filter-label">Sort</span>
-              <select id="sortSelect" class="sort-select">
-                <option value="default">Recommended</option>
-                <option value="discount">Highest discount</option>
-                <option value="distance">Closest first</option>
-              </select>
-            </div>
+          <div class="header-pill" aria-label="Nearby count">
+            <span class="pill-label">Nearby</span>
+            <span class="pill-value" id="nearbyCount">0</span>
           </div>
         </div>
       </div>
     </header>
 
-    <main>
-      <!-- DEALS LIST -->
-      <section id="deals" class="deals-section">
-        <div class="section-heading">
-          <h2>Nearby deals</h2>
-          <p>Hand-picked discounts available around you right now.</p>
+    <main class="page">
+      <section class="page-head">
+        <div class="page-head-left">
+          <h1>Deals</h1>
+          <p>Real discounts, all in one place.</p>
+          <div class="subnote" id="locationStatus">Location not enabled.</div>
         </div>
 
-        <div id="cardsContainer" class="cards-container">
-          <!-- Cards injected by script.js -->
+        <div class="toolbar" aria-label="Search and sort toolbar">
+          <button class="icon-btn" id="btnSearch" type="button" aria-haspopup="dialog">
+            🔎 <span>Search</span>
+          </button>
+
+          <button class="icon-btn" id="btnFilter" type="button" aria-haspopup="dialog">
+            ⚙️ <span>Category</span>
+          </button>
+
+          <button class="icon-btn" id="btnSort" type="button" aria-haspopup="dialog">
+            ⇅ <span>Sort</span>
+          </button>
         </div>
       </section>
 
-      <!-- HOW IT WORKS (short preview, full page is how_it_works.html) -->
-      <section id="how_it_works" class="info-section">
-        <h2>How Salesphere works</h2>
-        <div class="info-grid">
-          <article class="info-card">
-            <span class="info-number">1</span>
-            <h3>Set your area</h3>
-            <p>
-              Pick your location or let your browser detect it to see deals near
-              you.
-            </p>
-          </article>
-          <article class="info-card">
-            <span class="info-number">2</span>
-            <h3>Browse live offers</h3>
-            <p>
-              Filter by category, distance, and discount size to find the best
-              option.
-            </p>
-          </article>
-          <article class="info-card">
-            <span class="info-number">3</span>
-            <h3>Save money daily</h3>
-            <p>
-              Show the deal at the venue, enjoy the discount, and keep coming
-              back.
-            </p>
-          </article>
+      <section class="content">
+        <div id="cardsContainer" class="cards"></div>
+
+        <div id="emptyState" class="empty" hidden>
+          <div class="empty-card">
+            <div class="empty-badge">No deals yet</div>
+            <h2>We’re not live with deals right now.</h2>
+            <p>Once you add partner deals, they’ll appear here automatically.</p>
+          </div>
         </div>
       </section>
 
-      <!-- FOR BUSINESSES SHORT SECTION -->
-      <section class="info-section for-business">
-        <div class="info-content">
-          <h2>Own a café, restaurant, or cinema?</h2>
-          <p>
-            List your discounts on Salesphere and reach nearby students and
-            locals who actually want to spend.
-          </p>
-          <ul>
-            <li>Fill empty tables during off-peak hours.</li>
-            <li>Promote limited-time offers in seconds.</li>
-            <li>Get visibility without building your own app.</li>
-          </ul>
-          <a href="./business.html" class="primary-btn">Join as a partner</a>
+      <!-- SEARCH MODAL -->
+      <div class="modal" id="modalSearch" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-card">
+          <div class="modal-top">
+            <h3>Search</h3>
+            <button class="xbtn" data-close="modalSearch" aria-label="Close">✕</button>
+          </div>
+          <label class="field">
+            Search by name, description, badge
+            <input id="searchInput" type="text" placeholder="e.g. coffee, student, 10%" />
+          </label>
+          <div class="modal-actions">
+            <button class="btn primary" data-close="modalSearch" type="button">Done</button>
+          </div>
         </div>
-      </section>
+      </div>
+
+      <!-- FILTER MODAL -->
+      <div class="modal" id="modalFilter" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-card">
+          <div class="modal-top">
+            <h3>Category</h3>
+            <button class="xbtn" data-close="modalFilter" aria-label="Close">✕</button>
+          </div>
+
+          <div class="chips" id="typeChips">
+            <button class="chip active" data-type="all" type="button">All</button>
+            <button class="chip" data-type="cafe" type="button">Cafés</button>
+            <button class="chip" data-type="restaurant" type="button">Restaurants</button>
+            <button class="chip" data-type="cinema" type="button">Cinemas</button>
+            <button class="chip" data-type="other" type="button">Other</button>
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn primary" data-close="modalFilter" type="button">Apply</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SORT MODAL -->
+      <div class="modal" id="modalSort" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-card">
+          <div class="modal-top">
+            <h3>Sort</h3>
+            <button class="xbtn" data-close="modalSort" aria-label="Close">✕</button>
+          </div>
+
+          <label class="field">
+            Choose sorting
+            <select id="sortSelect">
+              <option value="default">Recommended</option>
+              <option value="discount">Highest discount</option>
+              <option value="distance">Closest first</option>
+            </select>
+          </label>
+
+          <div class="modal-actions">
+            <button class="btn primary" data-close="modalSort" type="button">Apply</button>
+          </div>
+        </div>
+      </div>
     </main>
 
-    <!-- BOTTOM NAV (MOBILE STYLE) -->
-    <footer class="bottom-nav">
-      <button class="nav-btn active" aria-label="Home">Home</button>
-      <button class="nav-btn" aria-label="Favorites">Favorites</button>
-      <button class="nav-btn" aria-label="Profile">Profile</button>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© <span id="year"></span> Salesphere.</span>
+      </div>
     </footer>
 
-    <script src="./script.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <script src="./deals.js"></script>
   </body>
 </html>
