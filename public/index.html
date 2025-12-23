@@ -97,15 +97,24 @@
 </div>
 
 <div class="kv">
-  <div class="k">Offerly code</div>
+  <div class="k">Use deal</div>
   <div class="v">
     <div class="redeem-row">
-      <code class="deal-code" id="dealModalCode">—</code>
-      <button class="btn small ghost" id="dealModalCopyBtn" type="button">Copy</button>
+      <button class="btn small primary" id="dealModalUseBtn" type="button">Use deal</button>
+      <span class="redeem-status" id="dealModalUseStatus"></span>
     </div>
-    <div class="redeem-hint" id="dealModalCodeHint">Show this code at checkout so the business knows you came from Offerly.</div>
+
+    <div class="redeem-hint" id="dealModalCodeHint">
+      Tap “Use deal” to generate your one-time Offerly code. Show it at checkout so the business knows you came from Offerly.
+    </div>
+
     <div class="redeem-row">
-      <button class="btn small primary" id="dealModalUsedBtn" type="button">I used this discount</button>
+      <code class="deal-code" id="dealModalCode">—</code>
+      <button class="btn small ghost" disabled id="dealModalCopyBtn" type="button">Copy</button>
+    </div>
+
+    <div class="redeem-row">
+      <button class="btn small outline" disabled id="dealModalUsedBtn" type="button">I used this discount</button>
       <span class="redeem-status" id="dealModalUsedStatus"></span>
     </div>
   </div>

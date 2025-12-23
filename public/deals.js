@@ -19,6 +19,20 @@ let favorites = new Set();
 const REDEEM_KEY = "offerly_redeem_v1";
 let redeemStore = {};
 
+function generateOneTimeCode(businessName) {
+  const prefix = String(businessName || "OFR")
+    .replace(/[^A-Za-z]/g, "")
+    .toUpperCase()
+    .slice(0, 4)
+    .padEnd(3, "X");
+
+  // 6 digits + short random to reduce collisions. (Still MVP: no backend.)
+  const digits = Math.floor(100000 + Math.random() * 900000);
+  const extra = Math.floor(10 + Math.random() * 90); // 2 digits
+  return `${prefix}-${digits}-${extra}`;
+}
+
+
 function loadRedeemStore() {
   try {
     redeemStore = JSON.parse(localStorage.getItem(REDEEM_KEY) || "{}") || {};
@@ -211,7 +225,7 @@ function updateActiveFiltersBar() {
   activeFiltersEl.appendChild(clearAll);
 }
 
-function openDealModal(deal, opts = {}) {
+function openDealModal(deal) {
   const modal = document.getElementById("modalDeal");
   if (!modal) return;
 
@@ -285,20 +299,31 @@ function openDealModal(deal, opts = {}) {
     };
   }
 
-// Redeem attribution (code + self-report)
-  const code = generateBusinessCode(deal);
+
+// Use deal attribution (one-time code + self-report)
+  const useBtn = document.getElementById("dealModalUseBtn");
+  const useStatusEl = document.getElementById("dealModalUseStatus");
+
+  const baseHint =
+    "Tap “Use deal” to generate your one-time Offerly code. Show it at checkout so the business knows you came from Offerly.";
+
+  const syncHint = () => {
+    const r = getRedeemRec(key);
+    const uses = Number(r.usedCount || 0);
+    if (codeHintEl) {
+      codeHintEl.textContent = baseHint + (uses ? ` Self-reported uses: ${uses}.` : "");
+    }
+  };
+
+  // Reset UI each time modal opens
+  if (codeEl) codeEl.textContent = "—";
+  if (copyBtn) copyBtn.disabled = true;
+  if (usedBtn) usedBtn.disabled = true;
+  if (useStatusEl) useStatusEl.textContent = "";
+
+  syncHint();
+
   const rec = getRedeemRec(key);
-  rec.code = code;
-  setRedeemRec(key, rec);
-
-  if (codeEl) codeEl.textContent = code;
-
-  if (codeHintEl) {
-    const uses = Number(rec.usedCount || 0);
-    codeHintEl.textContent =
-      "Show this code at checkout so the business knows you came from Offerly." +
-      (uses ? ` Self-reported uses: ${uses}.` : "");
-  }
 
   if (usedStatusEl) {
     if (rec.lastReport?.id && rec.lastReport?.ts) {
@@ -308,8 +333,31 @@ function openDealModal(deal, opts = {}) {
     }
   }
 
+  if (useBtn) {
+    useBtn.onclick = () => {
+      const updated = getRedeemRec(key);
+      updated.code = generateOneTimeCode(deal?.name);
+      setRedeemRec(key, updated);
+
+      if (codeEl) codeEl.textContent = updated.code;
+      if (copyBtn) copyBtn.disabled = false;
+      if (usedBtn) usedBtn.disabled = false;
+
+      if (useStatusEl) {
+        useStatusEl.textContent = "Code generated ✓";
+        setTimeout(() => (useStatusEl.textContent = ""), 1400);
+      }
+
+      syncHint();
+    };
+  }
+
   if (copyBtn) {
     copyBtn.onclick = async () => {
+      const r = getRedeemRec(key);
+      if (!r.code) return;
+      const code = r.code;
+
       try {
         await navigator.clipboard.writeText(code);
       } catch {
@@ -324,16 +372,17 @@ function openDealModal(deal, opts = {}) {
         try { document.execCommand("copy"); } catch {}
         document.body.removeChild(ta);
       }
+
       const updated = getRedeemRec(key);
-      updated.code = code;
       updated.copies = Number(updated.copies || 0) + 1;
       setRedeemRec(key, updated);
+
       if (usedStatusEl) {
         usedStatusEl.textContent = "Copied ✓";
         setTimeout(() => {
-          const r = getRedeemRec(key);
-          if (r.lastReport?.id && r.lastReport?.ts) {
-            usedStatusEl.textContent = `Last report: ${r.lastReport.id} • ${new Date(r.lastReport.ts).toLocaleString()}`;
+          const rr = getRedeemRec(key);
+          if (rr.lastReport?.id && rr.lastReport?.ts) {
+            usedStatusEl.textContent = `Last report: ${rr.lastReport.id} • ${new Date(rr.lastReport.ts).toLocaleString()}`;
           } else {
             usedStatusEl.textContent = "";
           }
@@ -345,9 +394,16 @@ function openDealModal(deal, opts = {}) {
   if (usedBtn) {
     usedBtn.onclick = () => {
       const updated = getRedeemRec(key);
-      updated.code = code;
+      if (!updated.code) {
+        if (useStatusEl) {
+          useStatusEl.textContent = "Tap “Use deal” first";
+          setTimeout(() => (useStatusEl.textContent = ""), 1500);
+        }
+        return;
+      }
+
       updated.usedCount = Number(updated.usedCount || 0) + 1;
-      updated.lastReport = { id: newReportId(), ts: Date.now() };
+      updated.lastReport = { id: newReportId(), ts: Date.now(), code: updated.code };
       setRedeemRec(key, updated);
 
       if (usedStatusEl) {
@@ -357,16 +413,8 @@ function openDealModal(deal, opts = {}) {
         }, 1400);
       }
 
-      if (codeHintEl) {
-        codeHintEl.textContent =
-          "Show this code at checkout so the business knows you came from Offerly." +
-          ` Self-reported uses: ${updated.usedCount}.`;
-      }
+      syncHint();
     };
-  }
-
-  if (opts?.focusRedeem && copyBtn) {
-    setTimeout(() => copyBtn.focus(), 80);
   }
 
   openModal("modalDeal");
@@ -432,15 +480,6 @@ cardsContainer?.addEventListener("click", (e) => {
     const key = detailsBtn.getAttribute("data-details");
     const deal = findDealByKey(key);
     if (deal) openDealModal(deal);
-    return;
-  }
-
-
-  const redeemBtn = e.target.closest("[data-redeem]");
-  if (redeemBtn) {
-    const key = redeemBtn.getAttribute("data-redeem");
-    const deal = findDealByKey(key);
-    if (deal) openDealModal(deal, { focusRedeem: true });
     return;
   }
 
@@ -619,7 +658,6 @@ function createCard(deal) {
 
         <div class="card-actions">
           <button class="btn small ghost" type="button" data-details="${escapeHtml(key)}">Details</button>
-          <button class="btn small primary" type="button" data-redeem="${escapeHtml(key)}">Redeem</button>
           ${mapsBtn}
         </div>
       </div>
