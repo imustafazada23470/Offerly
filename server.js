@@ -47,8 +47,8 @@ const MOCHA_CAFE = {
   description: "Buy a drink and get 40% off dessert.",
   validText: "Every day 07:00–12:00",
   mapsUrl: "https://maps.app.goo.gl/jwdXYPjj8dKnV4kR8?g_st=aw",
-  lat: null,
-  lng: null,
+  lat: 40.3978413,
+  lng: 49.9466599,
   imageUrl: "/img/mocha-cafe.png",
 };
 
@@ -61,8 +61,8 @@ const CAFE_PHI = {
   description: "30% off with takeaway orders.",
   validText: "Takeaway",
   mapsUrl: "https://maps.app.goo.gl/S2pCzd6dN7bAhRuy6?g_st=aw",
-  lat: null,
-  lng: null,
+  lat: 40.3764037,
+  lng: 49.8457381,
   imageUrl: "/img/cafe-phi.png",
 };
 
@@ -73,15 +73,15 @@ const MOKA_COFFEE = {
   discount: 15,
   badge: "Coffee roastery",
   description:
-    "15% off when you bring your own cup. Also available at a second branch: https://maps.app.goo.gl/sFR6vyMFMuEkhZFC9?g_st=aw",
+    "15% off when you bring your own cup.",
   validText: "Bring your own cup",
   mapsUrl: "https://maps.app.goo.gl/QxLYaRKdEKbccQKv5?g_st=aw",
   mapsUrls: [
     "https://maps.app.goo.gl/QxLYaRKdEKbccQKv5?g_st=aw",
     "https://maps.app.goo.gl/sFR6vyMFMuEkhZFC9?g_st=aw",
   ],
-  lat: null,
-  lng: null,
+  lat: 40.3697383,
+  lng: 49.8346465,
   imageUrl: "/img/moka-coffee.png",
 };
 
