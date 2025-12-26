@@ -601,3 +601,9 @@ a { color: inherit; text-decoration: none; }
     justify-content: center;
   }
 }
+
+
+/* Multiple map buttons in modal */
+.map-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+@media (max-width:640px){.map-btns{width:100%;justify-content:stretch;}
+.map-btns a{flex:1 1 100%;text-align:center;}}

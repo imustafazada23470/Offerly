@@ -37,8 +37,57 @@ const BABA_BUDAN = {
   imageUrl: "/img/baba-budan.jpg",
 };
 
+
+const MOCHA_CAFE = {
+  slug: "mocha-cafe-baku",
+  name: "Mocha Cafe Baku",
+  type: "cafe",
+  discount: 40,
+  badge: "Coffee shop",
+  description: "Buy a drink and get 40% off dessert.",
+  validText: "Every day 07:00–12:00",
+  mapsUrl: "https://maps.app.goo.gl/jwdXYPjj8dKnV4kR8?g_st=aw",
+  lat: null,
+  lng: null,
+  imageUrl: "/img/mocha-cafe.png",
+};
+
+const CAFE_PHI = {
+  slug: "cafe-phi",
+  name: "cafe phi.",
+  type: "cafe",
+  discount: 30,
+  badge: "Coffee shop",
+  description: "30% off with takeaway orders.",
+  validText: "Takeaway",
+  mapsUrl: "https://maps.app.goo.gl/S2pCzd6dN7bAhRuy6?g_st=aw",
+  lat: null,
+  lng: null,
+  imageUrl: "/img/cafe-phi.png",
+};
+
+const MOKA_COFFEE = {
+  slug: "moka-coffee",
+  name: "Moka Coffee",
+  type: "cafe",
+  discount: 15,
+  badge: "Coffee roastery",
+  description:
+    "15% off when you bring your own cup. Also available at a second branch: https://maps.app.goo.gl/sFR6vyMFMuEkhZFC9?g_st=aw",
+  validText: "Bring your own cup",
+  mapsUrl: "https://maps.app.goo.gl/QxLYaRKdEKbccQKv5?g_st=aw",
+  mapsUrls: [
+    "https://maps.app.goo.gl/QxLYaRKdEKbccQKv5?g_st=aw",
+    "https://maps.app.goo.gl/sFR6vyMFMuEkhZFC9?g_st=aw",
+  ],
+  lat: null,
+  lng: null,
+  imageUrl: "/img/moka-coffee.png",
+};
+
+
 let DB_OK = false;
-let FALLBACK_DEALS = [BABA_BUDAN];
+let FALLBACK_DEALS = [BABA_BUDAN, MOCHA_CAFE, CAFE_PHI, MOKA_COFFEE];
 
 // ===== DB CONNECT (does NOT crash server if missing)
 async function connectDb() {
@@ -55,13 +104,15 @@ async function connectDb() {
     DB_OK = true;
     console.log("✅ Connected to MongoDB");
 
-    // seed once
-    const exists = await Deal.findOne({ slug: BABA_BUDAN.slug }).lean();
-    if (!exists) {
-      await Deal.create(BABA_BUDAN);
-      console.log("✅ Seeded deal: Baba Budan");
-    } else {
-      console.log("ℹ️ Deal already exists: Baba Budan");
+    // seed once (idempotent)
+    for (const d of FALLBACK_DEALS) {
+      const exists = await Deal.findOne({ slug: d.slug }).lean();
+      if (!exists) {
+        await Deal.create(d);
+        console.log(`✅ Seeded deal: ${d.name}`);
+      } else {
+        console.log(`ℹ️ Deal already exists: ${d.name}`);
+      }
     }
   } catch (err) {
     DB_OK = false;

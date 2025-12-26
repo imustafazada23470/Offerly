@@ -240,7 +240,7 @@ function openDealModal(deal) {
   const distEl = document.getElementById("dealModalDistance");
   const validEl = document.getElementById("dealModalValid");
   const termsEl = document.getElementById("dealModalTerms");
-  const mapBtn = document.getElementById("dealModalMapBtn");
+  const mapBtns = document.getElementById("dealModalMapBtns");
   const saveBtn = document.getElementById("dealModalSaveBtn");
   const codeEl = document.getElementById("dealModalCode");
   const copyBtn = document.getElementById("dealModalCopyBtn");
@@ -276,17 +276,23 @@ function openDealModal(deal) {
   const terms = deal?.terms ? String(deal.terms) : "No extra terms provided.";
   if (termsEl) termsEl.textContent = terms;
 
-  if (mapBtn) {
-    if (deal?.mapsUrl) {
-      mapBtn.href = deal.mapsUrl;
-      mapBtn.classList.remove("disabled");
-      mapBtn.removeAttribute("aria-disabled");
+  
+  if (mapBtns) {
+    const urls = Array.isArray(deal?.mapsUrls) && deal.mapsUrls.length
+      ? deal.mapsUrls
+      : (deal?.mapsUrl ? [deal.mapsUrl] : []);
+
+    if (!urls.length) {
+      mapBtns.innerHTML = "";
+    } else if (urls.length === 1) {
+      mapBtns.innerHTML = `<a class="btn primary" href="${escapeHtml(urls[0])}" rel="noopener" target="_blank">Open map</a>`;
     } else {
-      mapBtn.href = "#";
-      mapBtn.classList.add("disabled");
-      mapBtn.setAttribute("aria-disabled", "true");
+      mapBtns.innerHTML = urls
+        .map((u, i) => `<a class="btn primary" href="${escapeHtml(u)}" rel="noopener" target="_blank">Open map ${i+1}</a>`)
+        .join("");
     }
   }
+
 
   if (saveBtn) {
     const fav = isFavorite(key);
